@@ -1,0 +1,949 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+        <variable
+            name="news"
+            type="com.cps.models.responses.EventsNewsItem" />
+
+        <variable
+            name="event"
+            type="com.cps.models.responses.EventsNewsItem" />
+
+        <import type="android.view.View" />
+        <variable
+            name="viewModel"
+            type="com.cps.views.home.HomeViewModel"/>
+        <variable
+            name="logged"
+            type="java.lang.Boolean"/>
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/background2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black_alpha">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/glh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.13" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toTopOf="@+id/glh"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintVertical_bias="0.0">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/glv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent=".10"/>
+                <!--
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/img"
+                                app:srcCompat="@drawable/ic_notifications"
+
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/glv"
+
+                                app:layout_constraintVertical_bias="0.3" />
+                -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_home"
+                    style="@style/TextWBBBS"
+                    android:text="@string/home"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/glv1"
+                    app:layout_constraintStart_toEndOf="@+id/glv"
+
+                    app:layout_constraintVertical_bias="0.3" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/glv1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent=".8"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_notification"
+                    android:layout_centerInParent="true"
+                    android:padding="7dp"
+                    android:background="@drawable/sh_circle_base"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/glv1"
+                    app:layout_constraintVertical_bias="0.3"
+                    android:onClick="@{(view) -> viewModel.goToNotification(view)}"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/glh1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".25"
+                app:layout_constraintWidth_percent="0.9"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/glh2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".2"
+                app:layout_constraintWidth_percent="0.9"/>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/glh2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@drawable/sh_corner_white"
+                android:fillViewport="true"
+                tools:ignore="MissingConstraints">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/glh1c"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent=".05"
+                        app:layout_constraintWidth_percent="0.9"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toBottomOf="@id/glh1c"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/conl_after"
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:layout_marginStart="19dp"
+                            android:layout_marginEnd="19dp"
+                            android:layout_marginTop="5dp"
+                            android:visibility="@{logged ? View.VISIBLE : View.GONE}">
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cv_activities"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/glv9"
+                                android:layout_marginEnd="7dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginStart="1dp"
+                                app:cardCornerRadius="10dp"
+                                android:elevation="2dp"
+                                app:cardElevation="10dp"
+                                app:cardPreventCornerOverlap="false">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:onClick="@{(view) -> viewModel.goToActivity(view)}">
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:id="@+id/img_icon_activities"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        app:srcCompat="@drawable/ic_activity"
+                                        android:layout_centerInParent="true"
+                                        app:layout_constraintBottom_toTopOf="@id/glh10"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                                    <GridLayout
+                                        android:id="@+id/glh10"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        app:layout_constraintGuide_percent=".75"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                                    <TextView
+                                        android:id="@+id/tv_activities"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/activity"
+                                        style="@style/TextBB"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@id/glh10"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"/>
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.constraintlayout.widget.Guideline
+                                android:id="@+id/glv9"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:layout_constraintGuide_percent=".33"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toStartOf="parent"/>
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cv_stu_result"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/glv9"
+                                app:layout_constraintEnd_toStartOf="@id/glv10"
+                                android:layout_marginEnd="3dp"
+                                android:layout_marginStart="3dp"
+                                android:layout_marginTop="10dp"
+                                app:cardCornerRadius="10dp">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:onClick="@{(view) -> viewModel.goToResult(view)}">
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:id="@+id/img_icon_stu_result"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        android:layout_centerInParent="true"
+                                        app:srcCompat="@drawable/ic_exam_result"
+                                        app:layout_constraintBottom_toTopOf="@id/glh11"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                                    <androidx.constraintlayout.widget.Guideline
+                                        android:id="@+id/glh11"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        app:layout_constraintGuide_percent=".75"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                                    <TextView
+                                        android:id="@+id/tv_stu_result"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/exam_result"
+                                        style="@style/TextBB"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@id/glh11"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.constraintlayout.widget.Guideline
+                                android:id="@+id/glv10"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:layout_constraintGuide_percent=".66"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toEndOf="parent"
+                                app:layout_constraintEnd_toStartOf="parent"/>
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cv_message"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/glv10"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                android:layout_marginStart="7dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="1dp"
+                                app:cardCornerRadius="10dp">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:onClick="@{(view) -> viewModel.goToMessage(view)}">
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:id="@+id/img_icon_message"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        app:layout_constraintBottom_toTopOf="@id/glh12"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:srcCompat="@drawable/ic_message"/>
+
+                                    <androidx.constraintlayout.widget.Guideline
+                                        android:id="@+id/glh12"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        app:layout_constraintGuide_percent=".75"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                                    <TextView
+                                        android:id="@+id/tv_message"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/message"
+                                        style="@style/TextBB"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@id/glh12"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/conl_before"
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:layout_marginStart="19dp"
+                            android:layout_marginEnd="19dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp">
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cv_news"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/glv4"
+                                android:layout_marginEnd="7dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginStart="1dp"
+                                app:cardCornerRadius="10dp"
+                                android:elevation="2dp"
+                                app:cardElevation="10dp"
+                                app:cardPreventCornerOverlap="false">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:onClick="goToNews">
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:id="@+id/img_icon_news"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        app:srcCompat="@drawable/ic_news"
+                                        android:layout_centerInParent="true"
+                                        app:layout_constraintBottom_toTopOf="@id/glh7"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                                    <GridLayout
+                                        android:id="@+id/glh7"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        app:layout_constraintGuide_percent=".75"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                                    <TextView
+                                        android:id="@+id/tv_news"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/news"
+                                        style="@style/TextBB"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@id/glh7"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"/>
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.constraintlayout.widget.Guideline
+                                android:id="@+id/glv4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:layout_constraintGuide_percent=".33"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/cv_gallery"/>
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cv_gallery"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/glv4"
+                                app:layout_constraintEnd_toStartOf="@id/glv5"
+                                android:layout_marginEnd="3dp"
+                                android:layout_marginStart="3dp"
+                                android:layout_marginTop="10dp"
+                                app:cardCornerRadius="10dp">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:onClick="@{(view) -> viewModel.goToGallery(view)}">
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:id="@+id/img_icon_gallery"
+                                        android:layout_width="65dp"
+                                        android:layout_height="65dp"
+                                        android:layout_centerInParent="true"
+                                        app:srcCompat="@drawable/ic_photo"
+                                        app:layout_constraintBottom_toTopOf="@id/glh8"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                                    <GridLayout
+                                        android:id="@+id/glh8"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        app:layout_constraintGuide_percent=".75"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                                    <TextView
+                                        android:id="@+id/tv_gallery"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/gallery"
+                                        style="@style/TextBB"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@id/glh8"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.constraintlayout.widget.Guideline
+                                android:id="@+id/glv5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:layout_constraintGuide_percent=".66"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/cv_gallery"
+                                app:layout_constraintEnd_toStartOf="@id/cv_event"/>
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cv_event"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/glv5"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                android:layout_marginStart="7dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="1dp"
+                                app:cardCornerRadius="10dp">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:onClick="goToEvents">
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:id="@+id/img_icon_event"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        app:layout_constraintBottom_toTopOf="@id/glh9"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:srcCompat="@drawable/ic_event"/>
+
+                                    <GridLayout
+                                        android:id="@+id/glh9"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        app:layout_constraintGuide_percent=".75"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                                    <TextView
+                                        android:id="@+id/tv_event"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/event"
+                                        style="@style/TextBB"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@id/glh9"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/tv_tit_contact"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/TextBBNS"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/contact"
+                            android:gravity="center_vertical"/>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cv_contact"
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="7dp"
+                            app:cardBackgroundColor="@color/blue"
+                            app:cardCornerRadius="10dp"
+                            android:clickable="true"
+                            android:onClick="@{(view) -> viewModel.goToContact(view)}">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/img_icon_contact"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toStartOf="@+id/glv7"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/ic_contact"/>
+
+                                <androidx.constraintlayout.widget.Guideline
+                                    android:id="@+id/glv7"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    app:layout_constraintGuide_percent=".2"/>
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/glv7"
+                                    app:layout_constraintEnd_toStartOf="@+id/glv8"
+                                    android:text="@string/contact_label"
+                                    android:gravity="center_vertical"
+                                    style="@style/TextWNS"/>
+
+                                <androidx.constraintlayout.widget.Guideline
+                                    android:id="@+id/glv8"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    app:layout_constraintGuide_percent=".8"/>
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/img_arrow_contact"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/glv8"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/ic_arrow"/>
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/tv_explore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="5dp"
+                            style="@style/TextBBNS"
+                            app:layout_constraintBottom_toTopOf="@+id/con_explore"
+                            app:layout_constraintTop_toBottomOf="@id/glh4"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:text="@string/explore"/>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/con_explore"
+                            android:layout_width="match_parent"
+                            android:layout_height="175dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginBottom="10dp">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                app:cardCornerRadius="10dp"
+                                android:layout_marginEnd="5dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/glv6"
+                                android:onClick="@{(view) -> viewModel.goToEventDetails(view,news)}">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <RelativeLayout
+                                        android:id="@+id/img_news"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        app:layout_constraintBottom_toTopOf="@id/glh5"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        android:background="@mipmap/default_image"
+                                        app:eventNewsImage="@{news.media.get(0)}">
+
+                                        <androidx.constraintlayout.widget.ConstraintLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:background="@color/black_alpha">
+
+                                            <TextView
+                                                android:id="@+id/tv_news_title"
+                                                style="@style/TextWBBS"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_margin="5dp"
+                                                android:ellipsize="end"
+                                                android:maxLines="1"
+                                                android:text='@{news.title, default="Children Day"}'
+                                                app:layout_constraintBottom_toTopOf="@id/tv_news_content"
+                                                app:layout_constraintStart_toStartOf="parent"
+                                                app:layout_constraintTop_toTopOf="parent"
+                                                app:layout_constraintVertical_bias="0.3" />
+
+                                            <TextView
+                                                android:id="@+id/tv_news_content"
+                                                style="@style/TextWSS"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginStart="5dp"
+                                                android:ellipsize="end"
+                                                android:maxLines="2"
+                                                android:text='@{news.content, default="Children Day is a commemorative date celebrated annually in honor of children"}'
+                                                app:layout_constraintBottom_toBottomOf="parent"
+                                                app:layout_constraintStart_toStartOf="parent"
+                                                app:layout_constraintTop_toBottomOf="@id/tv_news_title"
+                                                app:layout_constraintVertical_bias="0.5" />
+
+                                        </androidx.constraintlayout.widget.ConstraintLayout>
+                                    </RelativeLayout>
+
+                                    <androidx.constraintlayout.widget.Guideline
+                                        android:id="@+id/glh5"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        app:layout_constraintGuide_percent=".7"
+                                        app:layout_constraintTop_toBottomOf="@+id/img_news"
+                                        app:layout_constraintBottom_toTopOf="@+id/tv_news_date"/>
+
+                                    <TextView
+                                        android:id="@+id/tv_news_date"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text='@{news.createdAt, default="2020-1-1"}'
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@id/glh5"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        android:drawableStart="@drawable/ic_calendar"
+                                        android:drawablePadding="5dp"
+                                        android:layout_margin="5dp"/>
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.constraintlayout.widget.Guideline
+                                android:id="@+id/glv6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:orientation="vertical"
+                                app:layout_constraintTop_toBottomOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintGuide_percent=".5"/>
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_marginStart="5dp"
+                                app:cardCornerRadius="10dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/glv6"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                android:onClick="@{(view) -> viewModel.goToEventDetails(view,event)}">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <RelativeLayout
+                                        android:id="@+id/img_event"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        app:layout_constraintBottom_toTopOf="@id/glh6"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        android:background="@mipmap/default_image"
+                                        app:eventNewsImage="@{event.media.get(0)}">
+                                        <androidx.constraintlayout.widget.ConstraintLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:background="@color/black_alpha">
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:id="@+id/tv_event_title"
+                                                style="@style/TextWBBS"
+                                                android:text='@{event.title, default="Birth of The Prophet"}'
+                                                android:layout_margin="5dp"
+                                                app:layout_constraintBottom_toTopOf="@id/tv_event_content"
+                                                app:layout_constraintTop_toTopOf="parent"
+                                                app:layout_constraintStart_toStartOf="parent"
+                                                app:layout_constraintVertical_bias="0.3"
+                                                android:maxLines="1"
+                                                android:ellipsize="end" />
+
+                                            <TextView
+                                                android:id="@+id/tv_event_content"
+                                                style="@style/TextWSS"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginStart="5dp"
+                                                android:layout_marginEnd="5dp"
+                                                android:text='@{event.content, default="Prophet Muhammad was the sun that reflected on his companions"}'
+                                                app:layout_constraintBottom_toBottomOf="parent"
+                                                app:layout_constraintStart_toStartOf="parent"
+                                                app:layout_constraintTop_toBottomOf="@id/tv_event_title"
+                                                app:layout_constraintVertical_bias="0.5"
+                                                android:maxLines="2"
+                                                android:ellipsize="end" />
+
+                                        </androidx.constraintlayout.widget.ConstraintLayout>
+                                    </RelativeLayout>
+
+                                    <androidx.constraintlayout.widget.Guideline
+                                        android:id="@+id/glh6"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        app:layout_constraintGuide_percent=".7"
+                                        app:layout_constraintTop_toBottomOf="@+id/img_event"
+                                        app:layout_constraintBottom_toTopOf="@+id/tv_event_date"/>
+
+                                    <TextView
+                                        android:id="@+id/tv_event_date"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text='@{event.createdAt, default="2020-1-1"}'
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@id/glh6"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        android:drawableStart="@drawable/ic_calendar"
+                                        android:drawablePadding="5dp"
+                                        android:layout_margin="5dp"/>
+
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </ScrollView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@id/glh1"
+                app:layout_constraintTop_toBottomOf="@+id/glh"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintVertical_bias="0.5"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardCornerRadius="10dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/img1"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/adm"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_margin="10dp"
+                        app:srcCompat="@drawable/ic_school"/>
+
+                    <TextView
+                        android:id="@+id/adm"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/admission_open"
+                        style="@style/TextBBNS"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/img1"
+                        app:layout_constraintEnd_toStartOf="@id/glv2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_margin="5dp"/>
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/glv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/adm"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintGuide_percent=".5"/>
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/glv3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/adm"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintGuide_percent=".6"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/con_apply"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/glv3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:background="@drawable/sh_corner_black"
+                        android:padding="5dp"
+                        android:layout_margin="10dp"
+                        android:onClick="@{(view) -> viewModel.goToAdmission(view)}">
+                        <TextView
+                            android:id="@+id/apply"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/TextWhite"
+                            android:text="@string/apply_now"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/img_arrow"
+                            app:layout_constraintTop_toTopOf="parent"/>
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/img_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/apply"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_arrow"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
+
+</layout>

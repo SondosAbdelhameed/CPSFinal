@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="activity"
+            type="com.cps.models.responses.ActivitiesItem" />
+        <import type="android.view.View" />
+        <variable
+            name="viewModel"
+            type="com.cps.views.activity.ActivityViewModel"/>
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="10dp"
+        android:onClick="@{(view) -> viewModel.goToActivityDetails(view,activity)}">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/img_event"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@id/glh6"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@mipmap/default_image"
+                app:activityImage="@{activity.image}">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/black_alpha"
+                    android:layout_alignParentBottom="true">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_event_title"
+                        style="@style/TextWBNS"
+                        android:text='@{activity.title, default="Children Day"}'
+                        android:layout_margin="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:maxLines="3"
+                        android:ellipsize="end" />
+                    <!--
+                                    <TextView
+                                        android:id="@+id/tv_event_content"
+                                        style="@style/TextWSS"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="5dp"
+                                        android:layout_marginEnd="5dp"
+                                        android:text='@{news.content, default_image="Children Day is a commemorative date celebrated annually in honor of children"}'                    app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@id/tv_event_title"
+                                        app:layout_constraintVertical_bias="0.5"
+                                        android:maxLines="3"
+                                        android:ellipsize="end" />
+                    -->
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </RelativeLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/glh6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".70"
+                app:layout_constraintTop_toBottomOf="@+id/img_event"
+                app:layout_constraintBottom_toTopOf="@+id/tv_event_date"/>
+
+            <TextView
+                android:id="@+id/tv_event_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text='@{activity.date, default="2020-1-1"}'
+                app:layout_constraintBottom_toTopOf="@+id/tv_event_fees"
+                app:layout_constraintTop_toBottomOf="@id/glh6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:drawableStart="@drawable/ic_calendar"
+                android:drawablePadding="5dp"
+                android:layout_margin="5dp"/>
+
+            <TextView
+                android:id="@+id/tv_event_fees"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text='@{activity.cost, default="00.00"}'
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_event_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:drawableStart="@drawable/ic_fees"
+                android:drawablePadding="5dp"
+                android:layout_margin="5dp"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

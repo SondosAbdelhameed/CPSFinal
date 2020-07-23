@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+        <data>
+            <variable
+                name="activity"
+                type="com.cps.models.responses.ActivitiesItem" />
+
+            <import type="android.view.View" />
+        </data>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/blue"
+            tools:context="com.cps.views.ActivityDetails">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toTopOf="@+id/glh"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintVertical_bias="0.0">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_home"
+                    style="@style/TextWBBS"
+                    android:text='@{activity.title, default="@string/activity"}'
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/glh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.10" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/white_off"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/glh"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:id="@+id/img_activity"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toTopOf="@+id/glh1"
+                        android:background="@mipmap/default_image"
+                        app:activityImage="@{activity.image}"/>
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/glh1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintGuide_percent=".35"
+                        android:orientation="horizontal"/>
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_margin="20dp"
+                        android:drawableStart="@drawable/ic_calendar"
+                        android:drawablePadding="5dp"
+                        android:gravity="center_vertical"
+                        app:layout_constraintEnd_toStartOf="@+id/glv"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/glh1"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_fees"
+                        android:text='@{activity.date, default="2020-1-1"}'
+                        style="@style/TextBB"/>
+
+                    <TextView
+                        android:id="@+id/tv_fees"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="20dp"
+                        android:drawableStart="@drawable/ic_fees"
+                        android:drawablePadding="5dp"
+                        android:gravity="center_vertical"
+                        app:layout_constraintEnd_toStartOf="@+id/glv"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_date"
+                        app:layout_constraintBottom_toTopOf="@+id/glh2"
+                        android:text='@{activity.cost, default="00.00"}'
+                        style="@style/TextBB"/>
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/glv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent=".5"/>
+
+                    <Button
+                        android:id="@+id/btn_participate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/participate"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/glv"
+                        app:layout_constraintTop_toBottomOf="@+id/glh1"
+                        app:layout_constraintBottom_toTopOf="@+id/glh2"/>
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/ghl2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent=".45"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_margin="10dp"
+                        android:text='@{activity.details, default="No Data"}'
+                        style="@style/TextBNS"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/ghl2" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </RelativeLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </layout>
+

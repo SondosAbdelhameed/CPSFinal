@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "792459714595",
+    "firebase_url": "https://cps-app-ffd61.firebaseio.com",
+    "project_id": "cps-app-ffd61",
+    "storage_bucket": "cps-app-ffd61.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:792459714595:android:5d9477ef6033d3603c1196",
+        "android_client_info": {
+          "package_name": "com.cps.school"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "792459714595-jrb1tfe3u7o0caccoofbhi3mmmn99uar.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVf8bnnQPcP_kj9XXOexT3xIz8FjXFiB0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "792459714595-jrb1tfe3u7o0caccoofbhi3mmmn99uar.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "792459714595-h3l3g2kn8v5jpbr2l8au40on8f4l93hg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "bakr.CPS-School",
+                "app_store_id": "1502929766"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
